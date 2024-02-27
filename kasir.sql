@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Feb 2024 pada 09.02
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+-- Waktu pembuatan: 27 Feb 2024 pada 01.50
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,12 +28,26 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `detail_penjualan` (
-  `id_detail` int(10) NOT NULL,
-  `id_penjualan` int(10) NOT NULL,
-  `id_produk` int(10) NOT NULL,
-  `jml_produk` int(15) NOT NULL,
-  `subtotal` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `DetailID` int(10) NOT NULL,
+  `PenjualanID` int(10) NOT NULL,
+  `ProdukID` int(3) NOT NULL,
+  `JumlahProduk` int(3) NOT NULL,
+  `SubTotal` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `detail_penjualan`
+--
+
+INSERT INTO `detail_penjualan` (`DetailID`, `PenjualanID`, `ProdukID`, `JumlahProduk`, `SubTotal`) VALUES
+(0, 0, 136, 1, 8000),
+(0, 0, 131, 1, 8000),
+(0, 0, 131, 1, 8000),
+(0, 0, 131, 1, 8000),
+(0, 0, 132, 1, 3000),
+(76555, 76912, 34, 0, 0),
+(22, 22, 34, 4, 3000),
+(22, 22, 34, 4, 3000);
 
 -- --------------------------------------------------------
 
@@ -44,7 +58,7 @@ CREATE TABLE `detail_penjualan` (
 CREATE TABLE `login` (
   `username` varchar(15) NOT NULL,
   `password` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `login`
@@ -60,10 +74,20 @@ INSERT INTO `login` (`username`, `password`) VALUES
 --
 
 CREATE TABLE `penjualan` (
-  `id_penjualan` int(10) NOT NULL,
-  `tgl_penjualan` date NOT NULL,
-  `total_harga` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `PenjualanID` int(4) NOT NULL,
+  `TanggalPenjualan` date NOT NULL,
+  `TotalHarga` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `penjualan`
+--
+
+INSERT INTO `penjualan` (`PenjualanID`, `TanggalPenjualan`, `TotalHarga`) VALUES
+(921, '2024-02-07', 9000),
+(8456, '2024-02-06', 12500),
+(8764, '2024-02-06', 12500),
+(9834, '2024-02-08', 15000);
 
 -- --------------------------------------------------------
 
@@ -72,43 +96,50 @@ CREATE TABLE `penjualan` (
 --
 
 CREATE TABLE `produk` (
-  `id_produk` int(10) NOT NULL,
-  `nama_produk` varchar(30) NOT NULL,
-  `harga` int(15) NOT NULL,
-  `stok` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `ProdukID` int(10) NOT NULL,
+  `NamaProduk` varchar(30) NOT NULL,
+  `Harga` int(15) NOT NULL,
+  `Stok` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `produk`
 --
 
-INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga`, `stok`) VALUES
-(131, 'Minute Maid', 6000, 10),
-(132, 'ABC Cofee', 4000, 12),
-(133, 'Teh Pucuk', 3500, 8),
-(134, 'Fruit Tea', 6000, 15);
+INSERT INTO `produk` (`ProdukID`, `NamaProduk`, `Harga`, `Stok`) VALUES
+(34, 'bakpao', 3000, 49),
+(90, 'susu indomilk coklat', 2000, 36),
+(98, 'aqua', 4000, 57),
+(131, 'Minute Maid', 6000, 27),
+(132, 'ABC Cofee', 4000, 50),
+(133, 'Teh Pucuk', 3500, 53),
+(134, 'Fruit Tea', 6000, 12);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `detail_penjualan`
---
-ALTER TABLE `detail_penjualan`
-  ADD PRIMARY KEY (`id_detail`);
-
---
 -- Indeks untuk tabel `penjualan`
 --
 ALTER TABLE `penjualan`
-  ADD PRIMARY KEY (`id_penjualan`);
+  ADD PRIMARY KEY (`PenjualanID`);
 
 --
 -- Indeks untuk tabel `produk`
 --
 ALTER TABLE `produk`
-  ADD PRIMARY KEY (`id_produk`);
+  ADD PRIMARY KEY (`ProdukID`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
+--
+
+--
+-- AUTO_INCREMENT untuk tabel `penjualan`
+--
+ALTER TABLE `penjualan`
+  MODIFY `PenjualanID` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76913;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
